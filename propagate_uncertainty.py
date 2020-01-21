@@ -22,7 +22,7 @@ def propagate_uncertainty(expr, values=None, uncertainties=None, d=sym.symbols('
     for v in variables:
         if dv(v) in variables:
             raise ValueError('propagate_uncertainty cannot handle having both a variable named %s and a variable named %s' % (repr(str(v)), repr(str(dv(v)))))
-    # calculate symbolic error
+    # calculate symbolic error, as per https://en.wikipedia.org/wiki/Propagation_of_uncertainty#Simplification
     sym_error = sym.sqrt(sum(sym.diff(expr, v)**2 * dv(v)**2 for v in variables))
     # substitute in the uncertainties and the values
     # order of substitution does not matter because we use variables rather than
