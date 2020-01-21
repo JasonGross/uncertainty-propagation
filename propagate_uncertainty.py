@@ -24,7 +24,10 @@ def propagate_uncertainty(expr, values=None, uncertainties=None, d=sym.symbols('
             raise ValueError('propagate_uncertainty cannot handle having both a variable named %s and a variable named %s' % (repr(str(v)), repr(str(dv(v)))))
     # calculate symbolic error
     sym_error = sum(sym.diff(expr, v)**2 * dv(v)**2 for v in variables)
-    # substitute in first the uncertainties, then the values
+    # substitute in the uncertainties and the values
+    # order of substitution does not matter because we use variables rather than
+    #  functions for the differentials, and because we fail if any of the differential
+    #  variable names are already used as variable names
     num_error = sym_error.subs(dict((dv(k), v) for k, v in uncertainties.items())).subs(values)
     # replace the remaining uncertainties with derivative functions, rather than custom-named variables
     # this allows the user to specify the form the differentials take
