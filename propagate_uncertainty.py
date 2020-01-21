@@ -8,11 +8,11 @@ def propagate_uncertainty(expr, values=None, uncertainties=None, d=sym.symbols('
 
     >>> x, y = sym.symbols('x y')
     >>> propagate_uncertainty(x * y)
-    x**2*d(y)**2 + y**2*d(x)**2
+    sqrt(x**2*d(y)**2 + y**2*d(x)**2)
     >>> propagate_uncertainty(x * y, {x:2, y:3})
-    9*d(x)**2 + 4*d(y)**2
+    sqrt(9*d(x)**2 + 4*d(y)**2)
     >>> propagate_uncertainty(x * y, {x:20, y:30}, {x:2, y:3})
-    7200
+    60*sqrt(2)
     """
     if values is None: values = {}
     if uncertainties is None: uncertainties = {}
@@ -23,7 +23,7 @@ def propagate_uncertainty(expr, values=None, uncertainties=None, d=sym.symbols('
         if dv(v) in variables:
             raise ValueError('propagate_uncertainty cannot handle having both a variable named %s and a variable named %s' % (repr(str(v)), repr(str(dv(v)))))
     # calculate symbolic error
-    sym_error = sum(sym.diff(expr, v)**2 * dv(v)**2 for v in variables)
+    sym_error = sym.sqrt(sum(sym.diff(expr, v)**2 * dv(v)**2 for v in variables))
     # substitute in the uncertainties and the values
     # order of substitution does not matter because we use variables rather than
     #  functions for the differentials, and because we fail if any of the differential
