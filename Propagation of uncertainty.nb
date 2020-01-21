@@ -1,0 +1,284 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10829,        276]
+NotebookOptionsPosition[     10405,        260]
+NotebookOutlinePosition[     10748,        275]
+CellTagsIndexPosition[     10705,        272]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"AutoCollapse", "[", "]"}], ":=", 
+  RowBox[{"(", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"$FrontEnd", "=!=", "$Failed"}], ",", 
+     RowBox[{
+      RowBox[{"SelectionMove", "[", 
+       RowBox[{
+        RowBox[{"EvaluationNotebook", "[", "]"}], ",", "All", ",", 
+        "GeneratedCell"}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+      "FrontEndTokenExecute", "[", "\"\<SelectionCloseUnselectedCells\>\"", 
+       "]"}]}]}], "]"}], ")"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"VariableQ", "=", 
+   RowBox[{
+    RowBox[{"Quiet", "@", 
+     RowBox[{"ListQ", "@", 
+      RowBox[{"Solve", "[", 
+       RowBox[{
+        RowBox[{"{", "}"}], ",", "#"}], "]"}]}]}], "&"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"AllTrue", "[", 
+      RowBox[{"variables", ",", "VariableQ"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"Length", "[", "variables", "]"}], "\[Equal]", 
+         RowBox[{"Length", "[", "values", "]"}]}], "&&", 
+        RowBox[{
+         RowBox[{"Length", "[", "uncertainties", "]"}], "\[Equal]", 
+         RowBox[{"Length", "[", "values", "]"}]}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Grid", "[", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+           "\"\<Symbolic uncertainty:\>\"", ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"Simplify", "[", 
+              RowBox[{"Sqrt", "[", 
+               RowBox[{"Fold", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"#1", "+", "#2"}], "&"}], ",", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"D", "[", 
+                    RowBox[{"function", ",", 
+                    RowBox[{"{", "variables", "}"}]}], "]"}], "^", "2"}], "*", 
+                  RowBox[{
+                   RowBox[{"Dt", "[", "variables", "]"}], "^", "2"}]}]}], 
+                "]"}], "]"}], "]"}], "//", "TraditionalForm"}]}], "}"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"{", 
+           RowBox[{
+           "\"\<Numerical uncertainty:\>\"", ",", "\[IndentingNewLine]", 
+            RowBox[{"Simplify", "[", 
+             RowBox[{"ReplaceAll", "[", 
+              RowBox[{
+               RowBox[{"Sqrt", "[", 
+                RowBox[{"Fold", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"#1", "+", "#2"}], "&"}], ",", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"D", "[", 
+                    RowBox[{"function", ",", 
+                    RowBox[{"{", "variables", "}"}]}], "]"}], "^", "2"}], "*", 
+                   RowBox[{"uncertainties", "^", "2"}]}]}], "]"}], "]"}], ",", 
+               RowBox[{"Map", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "\[Rule]", 
+                   RowBox[{"#", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}]}], "&"}], ",", 
+                 RowBox[{"Transpose", "[", 
+                  RowBox[{"{", 
+                   RowBox[{"variables", ",", "values"}], "}"}], "]"}]}], 
+                "]"}]}], "]"}], "]"}]}], "}"}]}], "\[IndentingNewLine]", 
+         "}"}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"\"\<The lengths of variables (\>\"", "<>", 
+        RowBox[{"ToString", "[", 
+         RowBox[{"Length", "[", "variables", "]"}], "]"}], "<>", 
+        "\"\<), values (\>\"", "<>", 
+        RowBox[{"ToString", "[", 
+         RowBox[{"Length", "[", "values", "]"}], "]"}], "<>", 
+        "\"\<) and uncertainties (\>\"", "<>", 
+        RowBox[{"ToString", "[", 
+         RowBox[{"Length", "[", "uncertainties", "]"}], "]"}], "<>", 
+        "\"\<) must all be the same.\>\""}]}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<The following are not valid variables: \>\"", "<>", 
+      RowBox[{"StringDrop", "[", 
+       RowBox[{
+        RowBox[{"StringDrop", "[", 
+         RowBox[{
+          RowBox[{"ToString", "[", 
+           RowBox[{"Select", "[", 
+            RowBox[{"variables", ",", 
+             RowBox[{
+              RowBox[{"Not", "[", 
+               RowBox[{"VariableQ", "[", "#", "]"}], "]"}], "&"}]}], "]"}], 
+           "]"}], ",", "1"}], "]"}], ",", 
+        RowBox[{"-", "1"}]}], "]"}]}]}], "]"}], "\[IndentingNewLine]", ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"function", ",", 
+      RowBox[{"x", "*", "y"}]}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"variables", ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}]}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"values", ",", 
+      RowBox[{"{", 
+       RowBox[{"2", ",", "3"}], "}"}]}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"uncertainties", ",", 
+      RowBox[{"{", 
+       RowBox[{".2", ",", ".3"}], "}"}]}], "}"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"AutoCollapse", "[", "]"}]}], "Input",
+ CellChangeTimes->{{3.7355768311927147`*^9, 3.73557713872416*^9}, {
+   3.7355771713849287`*^9, 3.7355771793262577`*^9}, {3.7886288995862436`*^9, 
+   3.7886289365516944`*^9}, {3.7886290675242004`*^9, 
+   3.7886291042924013`*^9}, {3.788629162619234*^9, 3.7886294012662563`*^9}, {
+   3.788629451009412*^9, 3.788629573059594*^9}, {3.788629611158969*^9, 
+   3.788629619096047*^9}, 3.7886296519796596`*^9, {3.7886296928892927`*^9, 
+   3.7886297060401382`*^9}, {3.7886297644759154`*^9, 3.788629903250864*^9}},
+ CellLabel->
+  "In[113]:=",ExpressionUUID->"0fc96c83-b63a-4457-b6f1-e803f92cff7c"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`function$$ = $CellContext`x $CellContext`y, \
+$CellContext`uncertainties$$ = {0.2, 0.3}, $CellContext`values$$ = {
+    2, $CellContext`yv}, $CellContext`variables$$ = {$CellContext`x, \
+$CellContext`y}, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`function$$], $CellContext`x $CellContext`y}}, {{
+       Hold[$CellContext`variables$$], {$CellContext`x, $CellContext`y}}}, {{
+       Hold[$CellContext`values$$], {2, 3}}}, {{
+       Hold[$CellContext`uncertainties$$], {0.2, 0.3}}}}, Typeset`size$$ = {
+    308., {23.5, 29.5}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`function$$ = $CellContext`x \
+$CellContext`y, $CellContext`uncertainties$$ = {0.2, 
+         0.3}, $CellContext`values$$ = {2, 
+         3}, $CellContext`variables$$ = {$CellContext`x, $CellContext`y}}, 
+      "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> If[
+        AllTrue[$CellContext`variables$$, $CellContext`VariableQ], 
+        If[
+         And[
+         Length[$CellContext`variables$$] == Length[$CellContext`values$$], 
+          Length[$CellContext`uncertainties$$] == 
+          Length[$CellContext`values$$]], 
+         Grid[{{"Symbolic uncertainty:", 
+            TraditionalForm[
+             Simplify[
+              Sqrt[
+               
+               Fold[# + #2& , 
+                D[$CellContext`function$$, {$CellContext`variables$$}]^2 
+                Dt[$CellContext`variables$$]^2]]]]}, {
+           "Numerical uncertainty:", 
+            Simplify[
+             ReplaceAll[
+              Sqrt[
+               
+               Fold[# + #2& , 
+                D[$CellContext`function$$, {$CellContext`variables$$}]^2 \
+$CellContext`uncertainties$$^2]], 
+              Map[Part[#, 1] -> Part[#, 2]& , 
+               
+               Transpose[{$CellContext`variables$$, \
+$CellContext`values$$}]]]]}}], 
+         StringJoin["The lengths of variables (", 
+          ToString[
+           Length[$CellContext`variables$$]], "), values (", 
+          ToString[
+           Length[$CellContext`values$$]], ") and uncertainties (", 
+          ToString[
+           Length[$CellContext`uncertainties$$]], ") must all be the same."]], 
+        StringJoin["The following are not valid variables: ", 
+         StringDrop[
+          StringDrop[
+           ToString[
+            Select[$CellContext`variables$$, Not[
+              $CellContext`VariableQ[#]]& ]], 1], -1]]], 
+      "Specifications" :> {{{$CellContext`function$$, $CellContext`x \
+$CellContext`y}}, {{$CellContext`variables$$, {$CellContext`x, \
+$CellContext`y}}}, {{$CellContext`values$$, {2, 
+          3}}}, {{$CellContext`uncertainties$$, {0.2, 0.3}}}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{359., {101., 107.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.788629722478956*^9, {3.7886298969947443`*^9, 3.7886299041632986`*^9}, 
+   3.7886299354868755`*^9},
+ CellLabel->
+  "Out[115]=",ExpressionUUID->"03c5d563-1b19-4246-88b2-f6d1644dab17"]
+}, {2}]]
+},
+WindowSize->{759, 601},
+WindowMargins->{{Automatic, 295}, {24, Automatic}},
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 5875, 147, 466, "Input",ExpressionUUID->"0fc96c83-b63a-4457-b6f1-e803f92cff7c"],
+Cell[6458, 171, 3934, 86, 260, "Output",ExpressionUUID->"03c5d563-1b19-4246-88b2-f6d1644dab17"]
+}, {2}]]
+}
+]
+*)
+
